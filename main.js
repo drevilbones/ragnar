@@ -1,19 +1,30 @@
-var game = new Phaser.Game(600, 600, Phaser.AUTO, 'game_div');
+//Main: game starts and loops here
+
+var game = new Phaser.Game(1000, 940, Phaser.AUTO, 'game_div', 'main_state', true);
+
+var text = "hello world";
 
 var main_state = {
 
     preload: function() {},
 
-    create: function() {
+    create: function() {},
 
-        var text = "traditional hello world";
-        var style = {font: "24px Arial", fill: "#ff0044", align: "center" };
+    update: function() {
 
-        var t = game.add.text(150, game.world.centerY, text, style);
+        var tx = game.rnd.integerInRange(0, 1300);
+        var ty = game.rnd.integerInRange(0, 940);
+
+        var rndColor = Phaser.Color.getColor(game.rnd.integerInRange(0, 255),
+                            game.rnd.integerInRange(0, 255),
+                            game.rnd.integerInRange(0, 255));
+        var rndColorHex = "#" + Phaser.Color.componentToHex(rndColor);
+
+        text = rndColorHex;
+
+        game.add.text(tx, ty, text, {font: "24px Arial", fill: rndColorHex});
 
     },
-
-    update: function() {},
 
 }
 
