@@ -1,32 +1,29 @@
 //Main: game starts and loops here
 
-var game = new Phaser.Game(1000, 940, Phaser.AUTO, 'game_div', 'main_state', true);
+var app = new PIXI.Application({width:1024, height:768});
+document.body.appendChild(app.view);
 
-var text = "hello world";
+app.ticker.add(delta => gameLoop(delta));
 
-var main_state = {
+function gameLoop(delta) {
+    var totalPoints = randomInt(1,30);
+    var points = [];
 
-    preload: function() {},
+    var i;
+    for (i = 0; i < (totalPoints * 2); i++) {
+        points.push(randomInt(1, 512));
+    }
 
-    create: function() {},
+    var polygon = new PIXI.Graphics();
+    var color = randomColor(); //random hex color
 
-    update: function() {
+    polygon.beginFill(color);
+    polygon.drawPolygon(points);
+    polygon.endFill();
 
-        var tx = game.rnd.integerInRange(0, 1300);
-        var ty = game.rnd.integerInRange(0, 940);
+    polygon.x = randomInt(0, 512);
+    polygon.y = randomInt(0, 512);
+    app.stage.addChild(polygon);
 
-        var rndColor = Phaser.Color.getColor(game.rnd.integerInRange(0, 255),
-                            game.rnd.integerInRange(0, 255),
-                            game.rnd.integerInRange(0, 255));
-        var rndColorHex = "#" + Phaser.Color.componentToHex(rndColor);
-
-        text = rndColorHex;
-
-        game.add.text(tx, ty, text, {font: "24px Arial", fill: rndColorHex});
-
-    },
-
+    //polygon.destroy();
 }
-
-game.state.add('main', main_state);
-game.state.start('main');
