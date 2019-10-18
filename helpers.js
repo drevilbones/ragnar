@@ -1,9 +1,11 @@
 function randomInt(minval, maxval) {
-    //todo make this work for negative minvals
+    if (minval < 0) {
+        maxval = maxval + (minval * -1);
+    }
 
     return Math.floor((Math.random() * maxval) + minval);
 }
 
-function randomColor() {
+function randomColor() { //idk why this works, math is weird
     return Math.floor(Math.random()*16777215);
 }
